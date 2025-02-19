@@ -61,6 +61,10 @@ const PostsFile = () => {
     }
 
     // gestione invio del form
+    function handleSubmit(e) {
+        e.preventDefault();
+        setPost((currentPost) => [...currentPost, { id: currentPost[currentPost.lenght -1].id + 1 , ...formData }]);
+    }
 
     return (
         <>
