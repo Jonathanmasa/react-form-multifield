@@ -54,8 +54,13 @@ const PostsFile = () => {
 
     // gestisco info nei campi form
     function handleFormData(e) {
-
+        setFormData((currentFormData) => ({
+            ...currentFormData,
+            [e.target.name]: e.target.value,
+        }));
     }
+
+    // gestione invio del form
 
     return (
         <>
