@@ -60,11 +60,22 @@ const PostsFile = () => {
         }));
     }
 
-    // gestione invio del form
     function handleSubmit(e) {
         e.preventDefault();
-        setPost((currentPost) => [...currentPost, { id: currentPost[currentPost.lenght -1].id + 1 , ...formData }]);
-    }
+      
+        setPost(prevPosts => {
+          const newPost = {
+            id: prevPosts.length === 0 ? 1 : prevPosts[prevPosts.length - 1].id + 1,
+            ...formData
+          };
+      
+          const updatedPosts = [...prevPosts, newPost];
+          console.log("Nuovi post:", updatedPosts); // ✅ Controllo per vedere se il nuovo post viene aggiunto
+          return updatedPosts;
+        });
+      
+        setFormData(initialFormData);
+      }
 
     return (
         <>
@@ -103,14 +114,14 @@ const PostsFile = () => {
                  placeholder="Categoria"
                 />
 
-                <button>Aggiungi</button>
+                <button onClick={handleSubmit}>Aggiungi</button>
             </form>
 
             {
                 post.map((articolo) => (
                     <div className="card" key={articolo.id}>
                         <div className="card-header">
-                        <h3 className="card-title">Articolo</h3>
+                        <h4 className="card-title">{articolo.titolo}</h4>
                         </div>
 
                         <div className="card-body">
